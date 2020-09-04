@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   hide=true;
   user: SocialUser;
-  usr: any;
+  usr=JSON.parse(localStorage.getItem("users"));
   mail:string;
   password:string;
   usr_mail="admin@gmail.com";
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
         this.user = user;
         this.loggedIn = (user != null);
         sessionStorage.setItem("social_usr",JSON.stringify(this.user));
-        this.router.navigate(['form']);
+        this.router.navigate(['dashboard']);
         console.log(user);
       }
     });
@@ -47,11 +47,10 @@ export class LoginComponent implements OnInit {
   }
 
   signInManual(){
-    if((this.mail===this.usr_mail) && (this.password===this.pswd)){
-      this.usr={'email':this.mail,'password':this.password};
+    if((this.mail===this.usr['email']) && (this.password===this.usr['password'])){
       console.log(this.usr);
       sessionStorage.setItem("usr",JSON.stringify(this.usr));
-      this.router.navigate(['form']);
+      this.router.navigate(['dashboard']);
     }
     else{
       alert("Wrong email id and password.");

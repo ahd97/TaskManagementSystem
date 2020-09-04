@@ -1,1 +1,41 @@
-<p>dashboard works!</p>
+<app-sidebar></app-sidebar>
+<div class="padding margin">
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header class="padding">
+                <mat-panel-title class="padding">
+                    What are you going to do now?
+                </mat-panel-title>
+                <mat-panel-description>
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Task to do</mat-label>
+                        <input matInput type="text" [(ngModel)]="task">
+                        <button mat-button *ngIf="task" matSuffix mat-icon-button aria-label="Clear" (click)="task=''">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <form>
+                <mat-form-field appearance="fill">
+                    <mat-label>Project</mat-label>
+                    <mat-select [(ngModel)]="project" name="project">
+                        <mat-option *ngFor="let project of projects" [value]="project">{{project}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-stroked-button class="margin" color="primary" (click)="addTask()">Add</button>
+            </form>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<div class="padding margin">
+    <mat-list>
+        <mat-list-item *ngFor="let task of tasks;let i=index">
+            <span class="spacing">{{task['project']}}</span><br>
+            <span class="spacing">{{task['task']}}</span><br>
+            <span>{{task['minutes']}}</span><span>:</span><span class="spacing">{{task['seconds']}}</span><br>
+            <button mat-stroked-button class="margin" color="primary" (click)="startTimer(i)">{{btnText}}</button>
+        </mat-list-item>
+    </mat-list>
+    
+</div>

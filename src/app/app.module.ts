@@ -25,11 +25,14 @@ import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatDialogModule} from '@angular/material/dialog'
 import {MatCardModule} from '@angular/material/card'
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSelectModule} from '@angular/material/select'
+
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginregisternavComponent } from './loginregisternav/loginregisternav.component'
-import { from } from 'rxjs';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     RegisterComponent,
     LoginregisternavComponent,
-    DashboardComponent
+    DashboardComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +62,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatDialogModule,
     MatCardModule,
     MatToolbarModule,
+    MatExpansionModule,
+    MatSelectModule,
     FlexLayoutModule,
     SocialLoginModule
   ],

@@ -5,26 +5,59 @@
         <mat-card-title>Register</mat-card-title>
       </mat-card-header>
   
-      <form class="example-form">
+      <form class="example-form" [formGroup]="formGroup">
   
         <mat-card-content>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="First Name">
+            <input matInput placeholder="First Name" [(ngModel)]="firstName" formControlName="fName" name="firstName">
+            <mat-error *ngIf="formGroup.get('fName').hasError('required') && (formGroup.get('fName').dirty || formGroup.get('fName').touched)">
+              First name is required.
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('fName').hasError('minlength') && (formGroup.get('fName').dirty || formGroup.get('fName').touched)">
+              Name should contain atleast 3 letter.
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('fName').hasError('maxlength') && (formGroup.get('fName').dirty || formGroup.get('fName').touched)">
+              Name can't be 20 letters long.
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('fName').hasError('pattern') && (formGroup.get('fName').dirty || formGroup.get('fName').touched)">
+              Name can't contain numbers and special charecters.
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Last Name">
+            <input matInput placeholder="Last Name" [(ngModel)]="lastName" formControlName="lName" name="lastName">
+            <mat-error *ngIf="formGroup.get('lName').hasError('required') && (formGroup.get('lName').dirty || formGroup.get('lName').touched)">
+              Last name is required.
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('lName').hasError('minlength') && (formGroup.get('lName').dirty || formGroup.get('lName').touched)">
+              Name should contain atleast 3 letter.
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('lName').hasError('maxlength') && (formGroup.get('lName').dirty || formGroup.get('lName').touched)">
+              Name can't be 20 letters long.
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('lName').hasError('pattern') && (formGroup.get('lName').dirty || formGroup.get('lName').touched)">
+              Name can't contain numbers and special charecters.
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email">
+            <input matInput placeholder="Email" [(ngModel)]="email" formControlName="mail" name="email">
+            <mat-error *ngIf="formGroup.get('mail').hasError('required') && (formGroup.get('mail').dirty || formGroup.get('mail').touched)">
+              Email is required.
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('mail').hasError('pattern') && (formGroup.get('mail').dirty || formGroup.get('mail').touched)">
+              Email should be in correct format. Ex.- abc@example.com
+            </mat-error>
           </mat-form-field>
   
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Password">
+            <input matInput placeholder="Password" [(ngModel)]="password" formControlName="pswd" name="password">
+            <mat-error *ngIf="formGroup.get('pswd').hasError('required') && (formGroup.get('pswd').dirty || formGroup.get('pswd').touched)">
+            <mat-error *ngIf="formGroup.get('pswd').hasError('minlength') && (formGroup.get('pswd').dirty || formGroup.get('pswd').touched)"></mat-error>
+            </mat-error>
           </mat-form-field>
   
         </mat-card-content>
   
-        <button mat-stroked-button color="accent" class="btn-block">Register</button>
+        <button mat-stroked-button color="accent" class="btn-block" (click)="register()" [disabled]="!formGroup.valid">Register</button>
   
       </form>
     </mat-card>
