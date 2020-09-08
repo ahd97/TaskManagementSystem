@@ -49,10 +49,13 @@
           </mat-form-field>
   
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Password" [(ngModel)]="password" formControlName="pswd" name="password">
-            <mat-error *ngIf="formGroup.get('pswd').hasError('required') && (formGroup.get('pswd').dirty || formGroup.get('pswd').touched)">
-            <mat-error *ngIf="formGroup.get('pswd').hasError('minlength') && (formGroup.get('pswd').dirty || formGroup.get('pswd').touched)"></mat-error>
-            </mat-error>
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="password" formControlName="pswd">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            <mat-error *ngIf="formGroup.get('pswd').hasError('required') && (formGroup.get('pswd').dirty || formGroup.get('pswd').touched)">Password is required</mat-error>
+            <mat-error *ngIf="formGroup.get('pswd').hasError('minlength') && (formGroup.get('pswd').dirty || formGroup.get('pswd').touched)">Password should contain atleast 6 characters</mat-error>
           </mat-form-field>
   
         </mat-card-content>

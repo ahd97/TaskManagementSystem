@@ -9,3 +9,11 @@
 .spacing{
     padding-right: 10%;
 }
+
+table{
+    width: 100%;
+}
+
+.center{
+    text-align: center;
+}

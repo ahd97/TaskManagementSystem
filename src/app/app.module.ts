@@ -27,6 +27,7 @@ import {MatCardModule} from '@angular/material/card'
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select'
+import {MatTableModule} from '@angular/material/table';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -64,6 +65,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     MatToolbarModule,
     MatExpansionModule,
     MatSelectModule,
+    MatTableModule,
     FlexLayoutModule,
     SocialLoginModule
   ],

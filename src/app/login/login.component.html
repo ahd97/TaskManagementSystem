@@ -6,18 +6,22 @@
         <mat-card-title>Log in</mat-card-title>
       </mat-card-header><br>
   
-      <form class="example-form">
+      <form class="example-form" [formGroup]="formGroup">
         <mat-card-content>
           <mat-form-field class="example-full-width">
-            <input matInput  placeholder="Email" name="mail" [(ngModel)]="mail">
+            <input matInput  placeholder="Email" name="mail" [(ngModel)]="mail" formControlName="email">
+            <mat-error *ngIf="formGroup.get('email').hasError('required') && (formGroup.get('email').dirty || formGroup.get('email').touched)">
+              Email is required.
+            </mat-error>
           </mat-form-field> <br>
   
           <mat-form-field class="example-full-width">
             <mat-label>Enter your password</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="password">
+              <input matInput [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="password" formControlName="pswd">
               <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
+              <mat-error *ngIf="formGroup.get('pswd').hasError('required') && (formGroup.get('pswd').dirty || formGroup.get('pswd').touched)">Password is required</mat-error>
           </mat-form-field><br>
         </mat-card-content>
 

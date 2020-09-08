@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {FormBuilder, FormGroup, FormArray, Validators, FormControl, ValidatorFn} from '@angular/forms'
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms'
 
 @Component({
   selector: 'app-register',
@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   email:string;
   password:string;
   users:any;
+  hide=true;
   formGroup:FormGroup;
 
   constructor(private router:Router, private _formBuilder: FormBuilder) { }

@@ -29,13 +29,26 @@
     </mat-accordion>
 </div>
 <div class="padding margin">
-    <mat-list>
-        <mat-list-item *ngFor="let task of tasks;let i=index">
-            <span class="spacing">{{task['project']}}</span><br>
-            <span class="spacing">{{task['task']}}</span><br>
-            <span>{{task['minutes']}}</span><span>:</span><span class="spacing">{{task['seconds']}}</span><br>
-            <button mat-stroked-button class="margin" color="primary" (click)="startTimer(i)">{{btnText}}</button>
-        </mat-list-item>
-    </mat-list>
-    
+
+    <table>
+        <tr>
+            <th>Project</th>
+            <th>Task</th>
+            <th>Total time</th>
+            <th>Timer</th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let task of tasks;let i=index">
+            <td class="center">{{task['project']}}</td>
+            <td class="center">{{task['task']}}</td>
+            <td class="center">{{task['time']['totalhour']}}:{{task['time']['totalminute']}}:{{task['time']['totalsecond']}}</td>
+            <td class="center">{{task['hours']}}:{{task['minutes']}}:{{task['seconds']}}</td>
+            <td class="center">
+                <button mat-stroked-button color="primary" (click)="startTimer($event,i)">
+                    Start
+                </button>
+            </td>
+        </tr>
+    </table>
+
 </div>

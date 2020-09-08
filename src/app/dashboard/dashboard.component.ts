@@ -26,25 +26,33 @@ export class DashboardComponent implements OnInit{
     }
   }
 
-  startTimer(i){
+  startTimer(event,i){
     this.running=!this.running;
     if(this.running){
-      this.btnText="stop";
+      event.srcElement.innerHTML="Stop";
       const timer = interval(1000);
       const startTime = Date.now() - 0;
       this.clock = timer.subscribe(counter => {
         counter = Date.now() - startTime;
-        this.tasks[i]['houres']=Math.floor(counter / 3600000);
-        this.tasks[i]['minutes']= Math.floor(counter / 60000);
-        this.tasks[i]['seconds']= Math.floor(Math.floor(counter % 60000) / 1000).toFixed(0);
+        this.tasks[i]['hours']=Math.floor((counter) / (1000 * 60 * 60));
+        this.tasks[i]['minutes']= Math.floor((counter % (1000 * 60 * 60)) / (1000 * 60));
+        this.tasks[i]['seconds']= Math.floor((counter % (1000 * 60)) / 1000).toFixed(0);
+        if(Number(this.tasks[i]['hours']) < 10){
+          this.tasks[i]['hours'] = '0' + this.tasks[i]['hours'];
+        }
+        else{
+          this.tasks[i]['hours'] = '' + this.tasks[i]['hours'];
+        }
         if (Number(this.tasks[i]['minutes']) < 10) {
           this.tasks[i]['minutes'] = '0' + this.tasks[i]['minutes'];
-        } else {
+        }
+        else {
           this.tasks[i]['minutes'] = '' + this.tasks[i]['minutes'];
         }
         if (Number(this.tasks[i]['seconds']) < 10) {
           this.tasks[i]['seconds'] = '0' + this.tasks[i]['seconds'];
-        } else {
+        }
+        else {
           this.tasks[i]['seconds'] = '' + this.tasks[i]['seconds'];
         }
         console.log(this.tasks[i]['minutes']+":"+this.tasks[i]['seconds']);
@@ -52,16 +60,32 @@ export class DashboardComponent implements OnInit{
       });
     }
     else{
-      this.tasks[i]['time']['totalminute']=Number(this.tasks[i]['time']['totalminute'])+Number(this.tasks[i]['minutes']);
-      this.tasks[i]['time']['totalsecond']=Number(this.tasks[i]['time']['totalsecond'])+Number(this.tasks[i]['seconds']);
+      this.countTotalTime(this.tasks[i]['hours'],this.tasks[i]['minutes'],this.tasks[i]['seconds'],i);
       this.clock.unsubscribe();
       console.log(this.tasks[i]['time']);
-      this.btnText="start";
+      this.changeDetectorRef.detectChanges();
+      event.srcElement.innerHTML="Strat";
+    }
+  }
+
+  countTotalTime(hours,minutes,seconds,i){
+    if(Number(this.tasks[i]['time']['totalminute'])+Number(minutes)>60){
+      this.tasks[i]['time']['totalhour']+=1;
+      this.tasks[i]['time']['totalminute']+=(Number(minutes)-60);
+    }
+    if(Number(this.tasks[i]['time']['totalsecond'])+Number(seconds)>60){
+      this.tasks[i]['time']['totalminute']+=1;
+      this.tasks[i]['time']['totalsecond']+=(Number(seconds)-60);
+    }
+    else{
+      this.tasks[i]['time']['totalhour']=Number(this.tasks[i]['time']['totalhour'])+Number(hours);
+      this.tasks[i]['time']['totalminute']=Number(this.tasks[i]['time']['totalminute'])+Number(minutes);
+      this.tasks[i]['time']['totalsecond']=Number(this.tasks[i]['time']['totalsecond'])+Number(seconds);
     }
   }
 
   addTask(){
-    const t={'project':this.project,'task':this.task,'houres':'00','minutes':'00','seconds':'00','time':{'totalminute':'','totalsecond':''}};
+    const t={'project':this.project,'task':this.task,'hours':'00','minutes':'00','seconds':'00','time':{'totalhour':0,'totalminute':0,'totalsecond':0}};
     this.tasks.push(t);
     this.project="";
     this.task="";

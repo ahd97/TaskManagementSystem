@@ -3,6 +3,7 @@ import { SocialAuthService } from 'angularx-social-login';
 import { SocialUser } from "angularx-social-login";
 import { GoogleLoginProvider,FacebookLoginProvider } from 'angularx-social-login'
 import { Router } from '@angular/router';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms'
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,15 @@ export class LoginComponent implements OnInit {
   usr_mail="admin@gmail.com";
   pswd="admin@123";
   loggedIn: boolean;
+  formGroup:FormGroup;
 
-  constructor(private authService: SocialAuthService, private router: Router) { }
+  constructor(private authService: SocialAuthService, private router: Router, private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.formGroup=this._formBuilder.group({
+      email: new FormControl(null,Validators.required),
+      pswd: new FormControl(null,Validators.required)
+    });
   }
 
   subscribeAuthState(){
